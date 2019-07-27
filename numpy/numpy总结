@@ -1,0 +1,133 @@
+numpy的基本使用:
+        1.创建 三种方式:
+		np.array([]),
+		np.array(range()),
+		np.arange(1,6,2)
+        2.获取数组中数据的类型:
+		t1.dtype
+        3.numpy的数据类型: 
+		int8,int32,int64,float8,float32,float64,bool,....
+        4.改变数据类型:
+		t1.astype("i1")
+        5.numpy中的小数及取位数:
+		t2 = np.array([random.random() for i in range(12)]), 
+		t3 = np.round(t2,2)
+        6.numpy数组的形状:
+		t11 = np.arange(12) - 一维
+		t11.shape
+
+		t12 = np.array([[1, 2, 3], [2, 3, 5]]) - 二维
+		t12.shape
+
+		t13 = np.array([[[2, 3, 4], [3, 4, 5]], [[5, 6, 7], [7, 8, 9]]]) - 三维
+		t13.shape		
+	7.numpy改变数组的形状
+		t11.reshape((3, 4)) - reshape是重新创造出一个数组
+		t17 = t15.reshape(t15.shape[0] * t15.shape[1]) - t15.shape[0] * t15.shape[1]可以获取数组的行和列
+		t18 = t15.flatten() - flatten方法可以将数组快速的展成一维数组
+
+numpy的数组计算(广播原则):
+	1.数组和数计算时,每个数都进行计算
+	2.数组和数组计算时:
+		形状完全相同时,对应位置进行计算
+		形状不完全相同时,部分对应位置进行计算
+		形状完全不相同时,无法进行计算
+
+numpy读取本地数据:
+	np.loadtxt(frame, dtype=np.float, delimiter=None, skiprows=0, usecols=None, unpack=False)
+	frname - 文件路径
+	dtype - 数据类型
+	delimiter - 分隔字符串,默认是任何空格,可改为逗号
+	skiprows - 跳过前x行
+	usecols - 读取指定的列
+	unpack - 转置
+
+numpy数组的转置方法:
+	方法1: t1.transpose()
+	方法2: t1.T
+	方法3: t1.swapaxes()
+
+numpy索引和切片:
+	t1 = [[234, 23, 34, 5, 6, 78, 90],
+	      [344, 34, 56, 7, 8, 56, 10],
+ 	      [234, 23, 34, 5, 6, 78, 90],
+	      [344, 34, 56, 7, 8, 56, 10],
+              [234, 23, 34, 5, 6, 78, 90],
+	      [344, 34, 56, 7, 8, 56, 10]]
+
+	取一行: t1[1]或者t1[1, :] - 取第2行数据,为一维的
+	取连续多行: t1[2:]或者t1[2:, :] - 取第3行及之后的数据
+	取不连续的多行: t2[[2, 8, 10], :] -取第3,8,11行数据
+	
+	取列: t1[:, 0] - 取第1列的数据
+	取连续的多列: t2[:, 2:] - 取第3列及之后数据
+	取不连续的多列: t2[:,[0,2]] - 取第1,3列,组成二维数组
+
+	取行和列: t1[2, 3] - 取第3行第4列处的值,为一个点
+	取多行多列: t1[2:5, 1:4] - 取第3行到第4行,第2列到第4列的数据,组成二维数据
+	取多个不相邻的点: t1[[0, 2, 3], [0, 1, 4]] - 取(0, 0),(2, 1)和(3, 4)位置的数据,组成一维数据
+
+	注:逗号前表示行,逗号后表示列;冒号用于取某行到某行,某列到某列;冒号前数字表示的行或列可以取到,冒号后的行或列取不到；只有冒号时表示全取
+
+numpy中数值的修改:
+	取出行列再赋值: t1[:, 2:4] = 0 - 给第3列和第4列赋值为0
+	
+	numpy中的布尔索引:	
+		将t1中小于10的值换成3: t1[t1<10] = 3
+	
+	numpy中的三元运算符:
+		np.where(t1<10, 0, 100) - t1中小于10的数替换为0,t1中不小于10的数值替换成100
+	numpy中的裁剪:
+		t1.clip(10, 18) - 小于10的数值替换成10,大于18的数值替换成18
+	nan为float类型,将数值赋值为nan的方法为:np.nan
+
+numpy数组的拼接:
+	竖直拼接: np.vstack((t1, t2))
+	水平拼接: np.hstack((t1, t2))
+
+numpy数组的行列交换:
+	行交换: t1[[1, 2], :] = t1[[2, 1], :] - 交换t1的索引为1,2的行
+	列交换: t1[:, [1, 2]] = t1[:, [2, 1]] - 交换t1的索引为1,2的列
+
+numpy常用的随机数组:
+	创建全为0的数组: np.zeros((2, 3))
+	创建全为1的数组: np.ones((2, 3))
+	创建单位方阵: np.eye(10) - 10行10列的对角线为1其他全为0的矩阵
+
+numpy生成随机数组:
+	np.random.rand(d0,...,dn) - 创建d0到dn维的均匀分布的随机数数组,浮点数,范围从0-1
+	np.random.randn(d0,...,dn) - 创建d0-dn维度的标准正态分布随机数,浮点数,平均数0,标准差为1	
+	np.random.randint(low, high, (shape)) - 从给定上下限范围选取随机数整数,范围是low,high,形状为shape
+	np.random.uniform(low, high, (size)) - 产生具有均匀分布的数组,low为起始值,high为结束值,形状为size 	
+	np.random.seed(s) - 随机种子,s为给定的种子值,通过设定相同的种子数,可以每次产生相同的随机数
+
+numpy数组的最值:
+	按行计算最大值所在位置索引: np.argmax(t, axis=0)
+	按列计算最小值所在位置索引: np.argmin(t, axis=1)
+
+numpy的注意点copy和view:
+	1. a=b 完全不复制,a和b相互影响
+	2. a = b[:] view视图操作,一种切片,会创建新的对象a,但是a的数据完全由b保管,a和b数据变化一致
+	3. a = b.copy() 复制,a和b互不影响
+
+numpy中nan和inf:
+	nan的相关知识:
+		1.not a number表示不是一个数字,为float类型
+		2.当我们读取本地的文件为float的时候,如果有缺失,就会出现nan
+		3.当做了一个不适合的计算的时候(比如无穷大减去无穷大)
+		4.两个nan是不相等的: np.nan != np.nan
+		5.判断数组中nan的个数: np.count_nonzero(t1 != t1) 或者 np.isnan(t1)
+		6.nan和任何值计算都为nan
+		7.nan在计算的时候不能随意替换成0,应替换成该行或该列不为nan的所有值的平均值
+		  或中值或者直接删除有缺失值的这一行或这一列
+
+	inf - infinity,-inf表示负无穷,inf表示正无穷,为float类型
+
+numpy中常用的统计函数:
+	求和: t.sum(axis=None) 或 np.sum(axis=None)
+	均值: t.mean(a,axis=None) - 受离群点的影响较大
+	中值(中位数): np.median(t,axis=None)
+	最大值: t.max(axis=None)
+	最小值: t.min(axis=None)
+	极值: np.ptp(t,axis=None) - 最大值和最小值之差
+	标准差: t.std(axis=None)
