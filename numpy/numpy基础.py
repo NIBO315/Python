@@ -17,7 +17,7 @@ t1 = np.array([1, 2, 3])
 print(t1)
 print(type(t1))
 
-t2 = np.array(range(10))
+t2 = np.array(range(10))  # range(m,n,step)-用于产生m到n-1的等差数列
 print(t2)
 print(type(t2))
 
