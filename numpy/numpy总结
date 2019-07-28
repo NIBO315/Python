@@ -1,5 +1,6 @@
+					numpy知识点总结
 numpy的基本使用:
-        1.创建 三种方式:
+        1.创建的三种方式:
 		np.array([]),
 		np.array(range()),
 		np.arange(1,6,2)
