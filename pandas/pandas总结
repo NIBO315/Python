@@ -35,3 +35,9 @@ pandas之Series的切片和索引:
 			list(t.index)[:2] - 取出前2个索引
 		取值方法: t.values - 类型为numpy.ndarray,可按照numpy的方法进行计算
 		where方法: a.where(a > 1, 10) - 表示小于1的替换成10,大于1的不变化
+
+pandas读取本地数据:
+	pd.read_csv("frame") - 读取csv文件
+	pd.read_sql(sql_sentence, connection) - 读取数据库文件
+
+	
