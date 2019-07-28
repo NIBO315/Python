@@ -1,0 +1,37 @@
+					pandas知识点总结
+使用pandas的目的:
+	用于处理numpy无法处理的字符串、时间序列等非数值型数据,是numpy工具的一部分,和numpy的一些操作相同
+
+pandas常用的数据类型:
+	1.Series - 一维,带标签数组
+	2.DataFrame - 二维,Series容器
+
+pandas之Series常用操作:
+	1.获取值类型: pd.type
+	2.改变值类型: pd.astype(float)
+	3.布尔索引: t[t>4] - 取t中大于4的所有值
+	
+pandas之Series数组的创建:
+	1.普通创建:pd.Series([1, 2, 3, 4 ,5],index=list("abcde"))
+	2.通过字典创建:
+		key变为索引,value变为内容值
+		temp_dict = {"name": "xiaoming", "age": 20, "tel":10086}
+		pd.Series(temp_dict)
+	3.string.ascii_uppercase[i]:i for i in range(10) - 表示取A-J为索引,0-9为值
+
+pandas之Series的切片和索引:
+	1.Serues数组切片的相关知识:		
+		例:	
+	  	  temp_dict = {"name": "xiaoming", "age": 20, "tel": 10086}
+	  	  t = pd.Series(temp_dict)
+	
+		取单值: 数组名[索引号]
+		取连续值: 数组名[:索引号]
+		取不连续值: 数值名[[索引号, 索引号]] 或 数值名[["key名","key名"]]
+
+	2.Series数组索引的相关知识:
+		取索引方法: 
+			t.index - 取出数组所有索引,可迭代
+			list(t.index)[:2] - 取出前2个索引
+		取值方法: t.values - 类型为numpy.ndarray,可按照numpy的方法进行计算
+		where方法: a.where(a > 1, 10) - 表示小于1的替换成10,大于1的不变化
