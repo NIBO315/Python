@@ -40,4 +40,71 @@ pandas读取本地数据:
 	pd.read_csv("frame") - 读取csv文件
 	pd.read_sql(sql_sentence, connection) - 读取数据库文件
 
+pandas之DataFrame数组的创建:
+	1.普通创建: pd.DataFrame(np.arange(12).reshape((3, 4)))
+	2.指定索引创建: pd.DataFrame(np.arange(12).reshape((3, 4)), index=list("abc"), columns=list("wxyz"))
+	3.字典创建: 
+		d1 = {"name": ["xiaoming", "xiaohong"], "age": [20,23], "tel": [10086, 10010]}
+		pd.DataFrame(d1)
+		
+		d2 = [{"name": "xiaoming", "age":20, "tel": 10086}, {"name": "xiaohong","age": 23}, {"name":"xiaoni", "tel": 10010}]
+		pd.DataFrame(d2)
+
+pandas之DataFrame的基本属性:
+	1.df.index - 显示行索引的基本信息
+	2.df.columns - 显示列索引的基本信息
+	3.df.dtypes - 显示每列值的数据类型
+	4.df.values - 显示值的内容
+	5.df.ndim - 显示维度
+	6.df.shape - 显示形状
+	7.df.sort_values(by="输入按照什么进行排序", ascending=True) - 对数据进行排序,ascending默认为升序
+
+pandas之DataFrame整体情况查询:
+	1.df.head(3) - 显示头部几行,默认为5行
+	2.df.tail(3) - 显示尾部几行,默认为5行
+	3.df.info() - 展示df的相关信息概览:行数,列数,列索引,列非空值个数,列类型,内存占用
+	4.df.describe() - 快速统计综合结果:计数,均值,标准差,最大值,四分位数,最小值
+		
+pandas之DataFrame切片和索引:
+	1.取行和取列(方括号内写数字表示取行,对行进行操作;写字符串表示取列索引,对列进行操作)
+    		df[:20] - 取前20行
+    		df["Row_Labels"] - 取列索引名为Row_Labels的列
+
+    	2.pandas之loc:
+    		df.loc["a", "z"] - 通过标签索引行数据,取a行z列,可以进行赋值
+    		df.iloc[:, [1, 2]] - 通过位置获取行数据,取第1,2列,可以进行赋值
+	
+	3.pandas之布尔索引:
+		df[(df["Row_Labels"].str.len() > 4) & (df["Count_AnimalName"] > 700)]
+
+pandas之DataFrame缺失数据的处理:
+	例:		w  x  y  z
+		t = 0   2  3  4  5
+		    1  NaN 0  3  4
+		    2  NaN 2  0 NaN
+	缺失值通常有两种情况:NaN 和 0
+	判断数据是否为NaN:
+		1.pd.isnull(t)
+		2.pd.notnull(t)
+	处理NaN方式:
+		1.删除: 
+			t.dropna(axis=0/1, how="any/all") - how默认为any,只要有nan就删除该行和列,为all时表示一行或一列全为nan才删除该行或列
+		2.填充数据:
+			t.fillna(t.mean()) - 将所有为NaN的数据填充为均值或者中值
+			t["z"] = t["z"].fillna(t["z"].mean()) - 对某一列进行填充
+	处理0的方式:
+		若0为实验的数据,则不进行处理
+		若0是缺失值,则将0所在位置赋值为nan
+
+pandas之DataFrame常用的统计方法:
+	1.求平均数: df.mean() or df["某列索引"].mean()
+	2.转化成列表: df["某列索引"].str.split(",").tolist() or df["某列索引"].unique()
+	3.最值:		
+		df.max() or df["某列索引"].max()
+		df.min() or df["某列索引"].min()
+	4.获取最值所在位置:
+		df.argmax() or df["某列索引"].argmax()
+		df.argmin() or df["某列索引"].argmin()	
+	5.中值:
+		df.median()
 	
