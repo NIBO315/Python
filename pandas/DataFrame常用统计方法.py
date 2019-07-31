@@ -1,5 +1,14 @@
+"""
+    DataFrame常用的统计方法:
+        1.查看信息
+        2.查看首行
+        3.转换为列表
+        4.获取最值及最值索引位置
+        5.获取中值
+        6.求平均
+"""
 # 导入
-import pandas as pd
+import pandas索引学习 as pd
 import numpy as np
 
 # 导入本地文件
@@ -21,8 +30,7 @@ print(len(set(df["Director"].tolist())))
 
 # 获取演员人数
 temp_actors_list = df["Actors"].str.split(",").tolist()
-# actors_list = np.array(temp_actors_list).flatten()  # 有疑问
-actors_list = [i for j in temp_actors_list for i in j]  # 有疑问
+actors_list = [i for j in temp_actors_list for i in j]
 actors_num = len(set(actors_list))
 print(actors_num)
 

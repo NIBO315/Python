@@ -1,5 +1,19 @@
+"""
+      DataFrame的基本知识1:
+            1.导入
+            2.创建DataFrame数组
+                  普通创建
+                  字典创建
+            3.DataFrame基本属性
+                  取行列索引
+                  取值
+                  取维度
+                  取类型
+                  取具体数值类型
+            4.DataFrame整体情况查询
+"""
 # 导入
-import pandas as pd
+import pandas索引学习 as pd
 import numpy as np
 
 # 创建DataFrame数组

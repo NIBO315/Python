@@ -1,5 +1,11 @@
+"""
+    pandas及Series基本使用:
+        1.导入
+        2.创建Series数组
+        3.Series数组的切片和索引
+"""
 # 导入
-import pandas as pd
+import pandas索引学习 as pd
 import numpy as np
 import string
 
@@ -22,7 +28,7 @@ print(t)
 
 print("-" * 100)
 
-# pandas的切片和索引
+# Series的切片和索引
 
 # 切片的相关方法
 # 取单值

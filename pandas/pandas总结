@@ -107,4 +107,57 @@ pandas之DataFrame常用的统计方法:
 		df.argmin() or df["某列索引"].argmin()	
 	5.中值:
 		df.median()
+
+pandas字符串的离散化:
+	方法: 重新构造一个全0的数组,列名为分类,如果某一条数据中分类出现过,就让0变为1
+	具体核心操作: 
+		# 统计分类列表
+		temp_list = df["Genre"].str.split(",").tolist()  # [[],[],[],....]
+		genre_list = list(set([i for j in temp_list for i in j]))  # set()函数用于去重
+
+		# 构造全为0的数组
+		zeros_df = pd.DataFrame(np.zeros((df.shape[0], len(genre_list))), columns=genre_list)
+		# print(zeros_df)
+
+		# 给每个电影出现的位置赋值1
+		for i in range(df.shape[0]):
+   			# zeros_df[0,["Sci-fi","Mucical"]] =1
+    			zeros_df.loc[i, temp_list[i]] = 1
+
+pandas数据合并:
+	行合并join:
+		join默认情况下把行索引相同的数据合并到一起
+
+	列合并merge:
+		merge按照指定的列把数据按照一定的方式合并到一起
+		1.默认合并方式:inner,交集
+		2.outer,并集,NaN补全
+		3.left,左边为准,NaN补全
+		4.right,右边为准,NaN补全
+
+pandas数据的分组和聚合:
+        分组: 
+		df.groupby(by) - 按照某一列进行分组,DataFrameGroupBy为分组后的数据元组
+		df.groupby(by=["Country","Province"]).count() - 进行多组分组,DataFrame则可以不要加df
+		df.groupby(by=[df["Country"] ,df["Province"]]).count() - 若为Series则需要加df
+              	df.groupby(by=[df["Country"] ,df["Province"]])["Country"].count() - 获取分组后某一部分数据
+        	df["Country"].groupby(by=[df["Country"] ,df["Province"]]).count() - 对某几列数组进行分组
+
+	聚合: 通过分组后的数据元组进行聚合操作,如统计数量,平均值等
 	
+	常见的聚合方法:
+		count - 分组中非NaN值的数量
+		sum - 非NaN值的和
+		mean - 非NaN值的平均值
+		meidan - 非NaN值的算术中位数
+		std,var - 无偏(分母为n-1)标准差和方差
+		min,max - 非NaN的最值
+
+pandas索引相关知识:
+	索引的属性和方法:
+		获取索引: df.index
+		指定index: df.index = ['x', 'y']
+		重新设置: df.reindex(list("abcdef"))
+		指定某一列作为索引: df.set_index("Country", drop=Flase)
+		返回index的唯一值: df.set_index("Country").index.unique()
+

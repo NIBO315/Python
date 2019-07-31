@@ -1,5 +1,16 @@
+"""
+    DataFrame基本知识2:
+        1.读取本地文件
+        2.排序
+        3.切片和索引
+            取行和取列
+            布尔索引
+        4.缺失值处理
+            NaN处理: 删除和填充
+            0处理: 变为NaN
+"""
 # 导入
-import pandas as pd
+import pandas索引学习 as pd
 import numpy as np
 # 读取本地文件
 df = pd.read_csv("./dogNames2.csv")
