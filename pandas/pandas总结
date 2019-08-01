@@ -155,9 +155,30 @@ pandas数据的分组和聚合:
 
 pandas索引相关知识:
 	索引的属性和方法:
-		获取索引: df.index
-		指定index: df.index = ['x', 'y']
-		重新设置: df.reindex(list("abcdef"))
-		指定某一列作为索引: df.set_index("Country", drop=Flase)
-		返回index的唯一值: df.set_index("Country").index.unique()
+		1.获取索引: df.index
+		2.指定index: df.index = ['x', 'y']
+		3.重新设置: df.reindex(["a", "f"]) - 从df中取出a,f两行,有则取出,无则赋值为NaN并构成一个新的数组
+		4.指定某一列作为索引: 
+				df.set_index("Country", drop=Flase) - 从df中取一列作为所有行的索引,并构造一个新数组,原数组不改变
+				df.set_index(["a", "b"]) - 设置复合索引,将a,f列同时作为索引
+		5.返回index的唯一值: df.set_index("Country").index.unique()
+	
+	复合索引:
+		例:a = pd.DataFrame({'a': range(7),
+                 		 'b': range(7, 0, -1),
+                 		 'c': ['one', 'one', 'one', 'two', 'two', 'two', 'two'],
+                  		 'd': list("hijklmo")})	
+		1.构造DataFrame类型的复合索引:
+			b = a.set_index(["c","d"]) - 将c,d列作为索引号
+		  DataFrame复合索引取值:
+			b.loc["one"].loc["j"] - 取索引为one,j行的数据
+		2.构造Series类型的复合索引:
+			c = b["a"] - 取出b的索引为a的列
+		  Series复合索引的取值:
+			c["one"] - 取出索引为c所包含的复合索引及数据
+			c["one"]["j"] - 取出索引one,j所表示的数据
+		3.内外索引交换:
+			d = a.set_index(["d", "c"])["a"]
+			d.swaplevel() - 交换复合索引的内外索引
+	
 
